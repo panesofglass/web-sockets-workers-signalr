@@ -5,7 +5,76 @@
     <title>Web Sockets</title>
 </head>
 <body>
-    <h1>Web Sockets</h1>
+    <header>
+        <hgroup>
+            <h1>Web Sockets</h1>
+            <h2>Echo test</h2>
+        </hgroup>
+    </header>
 
+    <input id="message" name="message" type="text" />
+    <button id="send" type="button">Send</button>
+    <button id="close" type="button">Close</button>
+
+    <div id="output"></div>
+
+    <script>
+        (function (window, document) {
+            var uri = 'ws://localhost:5000/',
+                input = document.getElementById('message'),
+                output = document.getElementById('output'),
+                websocket;
+
+            function init() {
+                document.getElementById('send').addEventListener('click', clickSend);
+                document.getElementById('close').addEventListener('click', clickClose);
+                websocket = testWebSocket(uri);
+            }
+
+            function testWebSocket(uri) {
+                var websocket = new WebSocket(uri);
+                websocket.onopen = onopen;
+                websocket.onclose = onclose;
+                websocket.onmessage = onmessage;
+                websocket.onerror = onerror;
+                return websocket;
+            }
+
+            function onopen(e) {
+                print('Connected');
+            }
+
+            function onclose(e) {
+                print('Disconnected');
+            }
+
+            function onmessage(e) {
+                print('<span style="color:blue;">Received: ' + e.data + '</span>');
+            }
+
+            function onerror(e) {
+                print('<span style="color:red;">Error: ' + e.data + '</span>');
+            }
+
+            function clickSend() {
+                var message = input.value;
+                print('Sent: ' + message);
+                sendMessage(message);
+            }
+
+            function clickClose() {
+                websocket.close();
+            }
+
+            function print(message) {
+                var p = document.createElement('p');
+                p.style.wordWrap = 'break-word';
+                p.textContent = message;
+                output.appendChild(p);
+            }
+
+            window.addEventListener('load', init, false);
+        })(window, document);
+    </script>
 </body>
 </html>
