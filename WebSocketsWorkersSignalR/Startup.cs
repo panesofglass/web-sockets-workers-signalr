@@ -14,7 +14,7 @@ namespace WebSocketsWorkersSignalR
         public void Configuration(IAppBuilder app)
         {
             // Raw web sockets
-            app.UseHandlerAsync(UpgradeToWebSockets);
+            //app.UseHandlerAsync(UpgradeToWebSockets);
 
             // SignalR Hubs
             var hubConfig = new HubConfiguration() { EnableCrossDomain = true };
@@ -45,6 +45,15 @@ namespace WebSocketsWorkersSignalR
             }
 
             await socket.CloseAsync(socket.ClientCloseStatus, socket.ClientCloseDescription, socket.CallCancelled);
+        }
+    }
+
+    public class Chat : Hub
+    {
+        public void Send(string message)
+        {
+            // call the dynamic addMessage we created in the client.
+            Clients.All.addMessage(message);
         }
     }
 }
