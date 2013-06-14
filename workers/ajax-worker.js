@@ -12,7 +12,7 @@ function fetchContent() {
         if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
             postMessage(xmlhttp.responseText);
         }
-    }
+    };
 
     xmlhttp.open('GET', 'ajax-content.html', true);
     xmlhttp.send();
