@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Web Workers: Ajax</title>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Making an Ajax request in a worker</h1>
+            <h2>Result: <span id="result"></span></h2>
+            <button id="fetchButton" value="Get Content" title="worker.postMessage('Hello!');">Get Content</button>
+            <ul id="log"></ul>
+        </div>
+        <script>
+            (function (document, Worker) {
+                var _worker,
+                    fetchButton = document.getElementById('fetchButton'),
+                    log = document.getElementById('log'),
+                    result = document.getElementById('result');
+
+                function logMsg(msg) {
+                    var item = document.createElement('li');
+                    item.innerText = msg;
+                    log.appendChild(item);
+                }
+
+                function messageHandler(e) {
+                    result.innerHTML = e.data;
+                }
+
+                function errorHandler(e) {
+                    logMsg(e.message);
+                }
+
+                function clickHandler() {
+                    _worker = new Worker('ajax-worker.js');
+                    _worker.addEventListener('message', messageHandler, false);
+                    _worker.addEventListener('error', errorHandler, false);
+                    _worker.postMessage('fetch');
+                }
+
+                fetchButton.addEventListener('click', clickHandler, false);
+            })(document, Worker);
+        </script>
+    </body>
+</html>

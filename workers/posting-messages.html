@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Web Workers: Posting messages to web workers</title>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Posting string messages to web workers</h1>
+            <h2>Result: <span id="result"></span></h2>
+            <button id="postButton" value="Post Message" title="worker.postMessage('Hello!');">Post message</button>
+            <ul id="log"></ul>
+        </div>
+        <script>
+            (function (document, Worker) {
+                var button, log, result, worker;
+
+                function logMsg(msg) {
+                    var item = document.createElement('li');
+                    item.innerText = msg;
+                    log.appendChild(item);
+                }
+
+                function messageHandler(e) {
+                    result.innerText = e.data;
+                }
+
+                function errorHandler(e) {
+                    logMsg(e.message);
+                }
+
+                function clickHandler() {
+                    worker = new Worker('posting-messages-worker.js');
+                    worker.onmessage = messageHandler;
+                    worker.onerror = errorHandler;
+                    worker.postMessage('Hello!');
+                    logMsg('Posting string message to worker thread.');
+                }
+
+                log = document.getElementById('log');
+                result = document.getElementById('result');
+                button = document.getElementById('postButton');
+
+                button.onclick = clickHandler;
+            })(document, Worker);
+        </script>
+    </body>
+</html>
