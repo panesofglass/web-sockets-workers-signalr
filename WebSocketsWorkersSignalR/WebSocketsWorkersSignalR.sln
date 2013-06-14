@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketsWorkersSignalR", "WebSocketsWorkersSignalR.csproj", "{016C84C4-75F1-4E82-80B9-15386A20F3A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workers", "workers", "{D41D8ABB-CF64-4EF0-901E-7087BEB3D76B}"
+	ProjectSection(SolutionItems) = preProject
+		..\workers\ajax-content.html = ..\workers\ajax-content.html
+		..\workers\ajax-worker.js = ..\workers\ajax-worker.js
+		..\workers\ajax.html = ..\workers\ajax.html
+		..\workers\index.html = ..\workers\index.html
+		..\workers\posting-messages-worker.js = ..\workers\posting-messages-worker.js
+		..\workers\posting-messages.html = ..\workers\posting-messages.html
+		..\workers\posting-object-worker.js = ..\workers\posting-object-worker.js
+		..\workers\posting-object.html = ..\workers\posting-object.html
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{016C84C4-75F1-4E82-80B9-15386A20F3A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016C84C4-75F1-4E82-80B9-15386A20F3A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016C84C4-75F1-4E82-80B9-15386A20F3A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016C84C4-75F1-4E82-80B9-15386A20F3A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
