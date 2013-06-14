@@ -1,4 +1,5 @@
-﻿using Owin;
+﻿using Microsoft.AspNet.SignalR;
+using Owin;
 using Owin.Types;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace WebSocketsWorkersSignalR
             app.UseHandlerAsync(UpgradeToWebSockets);
 
             // SignalR Hubs
-            app.MapHubs();
+            var hubConfig = new HubConfiguration() { EnableCrossDomain = true };
+            app.MapHubs(hubConfig);
         }
 
         Task UpgradeToWebSockets(OwinRequest request, OwinResponse response, Func<Task> next)
@@ -32,12 +34,13 @@ namespace WebSocketsWorkersSignalR
         async Task WebSocketEcho(OwinWebSocket socket)
         {
             byte[] buffer = new byte[1024];
-            var received = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), socket.CallCancelled);
+            OwinWebSocketReceiveMessage received = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), socket.CallCancelled);
 
             while (socket.ClientCloseStatus == 0)
             {
                 // Echo
-                await socket.SendAsync(new ArraySegment<byte>(buffer), socket.CallCancelled);
+                await socket.SendAsync(new ArraySegment<byte>(buffer, 0, received.Count), received.MessageType, received.EndOfMessage, socket.CallCancelled);
+
                 received = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), socket.CallCancelled);
             }
 

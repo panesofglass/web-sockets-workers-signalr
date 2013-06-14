@@ -59,7 +59,7 @@
             function clickSend() {
                 var message = input.value;
                 print('Sent: ' + message);
-                sendMessage(message);
+                websocket.send(message);
             }
 
             function clickClose() {
@@ -69,7 +69,7 @@
             function print(message) {
                 var p = document.createElement('p');
                 p.style.wordWrap = 'break-word';
-                p.textContent = message;
+                p.innerHTML = message;
                 output.appendChild(p);
             }
 
