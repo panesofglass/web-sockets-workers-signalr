@@ -9,14 +9,11 @@ namespace WebSocketsWorkersSignalR
 {
     public class Startup
     {
-        public void Configuration(IAppBuilder app)
+        public void Configuration(IAppBuilder builder)
         {
-            // SignalR Hubs
-            var hubConfig = new HubConfiguration { EnableCrossDomain = true };
-            app.MapHubs(hubConfig);
-
-            // Raw web sockets
-            //app.UseHandlerAsync(UpgradeToWebSockets);
+            builder
+                .MapHubs(new HubConfiguration { EnableCrossDomain = true })
+                .UseHandlerAsync(UpgradeToWebSockets);
         }
 
         Task UpgradeToWebSockets(OwinRequest request, OwinResponse response, Func<Task> next)

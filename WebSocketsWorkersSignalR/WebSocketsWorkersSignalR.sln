@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin", "Owin.csproj", "{016C84C4-75F1-4E82-80B9-15386A20F3A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketsWorkersSignalR", "WebSocketsWorkersSignalR.csproj", "{016C84C4-75F1-4E82-80B9-15386A20F3A8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F4F6641A-5ACE-48AE-B79A-44EDB2D25F9B}"
 	ProjectSection(SolutionItems) = preProject
