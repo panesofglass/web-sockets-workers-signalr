@@ -17,30 +17,31 @@
     <script src="Scripts/jquery-1.6.4.min.js" type="text/javascript"></script>
     <script src="Scripts/jquery.signalR-1.1.2.js" type="text/javascript"></script>
     <!-- configure the SignalR proxy -->
-    <!--<script src="http://localhost:5000/signalr/hubs" type="text/javascript"></script>-->
+    <script src="http://localhost:5000/signalr/hubs" type="text/javascript"></script>
     <script>
         (function (document, $) {
             $(document).ready(function () {
                 // Create the hub proxy.
-                var connection = $.hubConnection('http://localhost:5000'),
-                    chatProxy = connection.createHubProxy('chathub');
+                var chatProxy = $.connection.chatHub;
 
                 // Declare a function on the chat hub for the server to invoke.
-                chatProxy.on('addMessage', function (message) {
+                chatProxy.client.addMessage = function (message) {
                     $('#messages').append('<li>' + message + '</li>');
-                });
+                };
 
+                // Set the cross domain url.
+                $.connection.hub.url = 'http://localhost:5000';
                 // Turn on logging.
-                connection.logging = true;
+                $.connection.hub.logging = true;
                 // Start the connection.
-                connection.start().
+                $.connection.hub.start().
                     done(function () {
                         console.log('connection started');
                         $('#broadcast').click(function () {
                             var msg = $('#msg').val();
                             console.log('broadcasting: ' + msg);
                             // Call the chat method on the server
-                            chatProxy.invoke('send', msg).
+                            chatProxy.server.send(msg).
                                 done(function () {
                                     console.log('sent message');
                                 }).
