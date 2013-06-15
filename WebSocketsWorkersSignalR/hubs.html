@@ -17,7 +17,43 @@
     <script src="Scripts/jquery-1.6.4.min.js" type="text/javascript"></script>
     <script src="Scripts/jquery.signalR-1.1.2.js" type="text/javascript"></script>
     <!-- configure the SignalR proxy -->
-    <!--<script src="http://localhost:5000/signalr/hubs" type="text/javascript"></script>-->
+<!--    <script src="signalr/hubs" type="text/javascript"></script>
+    <script>
+        (function (document, $) {
+            $(document).ready(function () {
+                // Create the hub proxy.
+                var chatProxy = $.connection.chathub;
+
+                // Declare a function on the chat hub for the server to invoke.
+                chatProxy.client.addMessage(function (message) {
+                    $('#messages').append('<li>' + message + '</li>');
+                });
+
+                // Turn on logging.
+                $.connection.hub.logging = true;
+                // Start the connection.
+                $.connection.hub.start().
+                    done(function () {
+                        console.log('connection started');
+                        $('#broadcast').click(function () {
+                            var msg = $('#msg').val();
+                            console.log('broadcasting: ' + msg);
+                            // Call the chat method on the server
+                            chatProxy.server.send(msg).
+                                done(function () {
+                                    console.log('sent message');
+                                }).
+                                fail(function (error) {
+                                    console.log('failed to send message with: ' + error);
+                                }); // Returns a promise.
+                        });
+                    }).
+                    fail(function (error) {
+                        console.log('connection failed with: ' + error);
+                    });
+            });
+        })(document, jQuery);
+    </script>-->
     <script>
         (function (document, $) {
             $(document).ready(function () {

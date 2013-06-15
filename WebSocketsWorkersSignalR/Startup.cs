@@ -11,9 +11,11 @@ namespace WebSocketsWorkersSignalR
     {
         public void Configuration(IAppBuilder builder)
         {
+            var directory = new DirectoryInfo(AppDomain.CurrentDomain.SetupInformation.ApplicationBase).Parent.Parent;
             builder
                 .MapHubs(new HubConfiguration { EnableCrossDomain = true })
-                .UseHandlerAsync(UpgradeToWebSockets);
+                .UseHandlerAsync(UpgradeToWebSockets)
+                .UseStaticFiles(directory.FullName);
         }
 
         Task UpgradeToWebSockets(OwinRequest request, OwinResponse response, Func<Task> next)
